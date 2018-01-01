@@ -27,12 +27,14 @@ try:
 			
 			base = parent.owner.login+":"+parent.default_branch
 			head = repo.owner.login+":"+repo.default_branch
-			compare = repo.compare(base,head)
-			line = "-{} -> Fork of {} = Status {}".format(repo.name,parent.full_name,compare.status)
-			print(line)
-			
-			i = status.index(compare.status)
-
+			try:
+				compare = repo.compare(base,head)
+				line = "-{} -> Fork of {} = Status {}".format(repo.name,parent.full_name,compare.status)
+				print(line)
+				i = status.index(compare.status)
+			except Exception as e:
+				print(e)
+				i = 3
 			status_count[i] += 1
 
 	report = "\nReport for user {}:".format(user)
